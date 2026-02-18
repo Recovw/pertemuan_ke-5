@@ -9,5 +9,20 @@ class Item extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'stock'];
+    protected $fillable = ['name', 'description', 'stock', 'category_id'];
+
+    public function category()
+    {
+        return $his->belongsTo(ItemCategory::class, 'category_id');
+    }
+
+    public function detail()
+    {
+        return $his->hasOne(ItemDetail::class, 'item_id');
+    }
+
+    public function warehouses() : HasMany
+    {
+        return $this->hasMany(WarehouseItem::class, 'item_id', 'id');
+    }
 }
